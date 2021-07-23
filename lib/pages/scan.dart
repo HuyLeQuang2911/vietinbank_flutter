@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart' hide Response ;
+import 'package:viettinbank_money/dto/login_resp.dart';
 import 'package:viettinbank_money/dto/user_login.dart';
 import 'package:viettinbank_money/dto/user_qr.dart';
 
@@ -14,6 +15,8 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   String? qrCodeResult;
   final UserLogin login = Get.find();
+  final String ip = Get.find();
+  // final loginResp = Get.find();
   bool backCamera = true;
 
   Future<String> authAtm(String sessionCode) async {
@@ -24,12 +27,12 @@ class _ScanPageState extends State<ScanPage> {
     var dio = Dio(options);
     var req = UserQR(login.username , login.password , sessionCode);
 
-    debugPrint('----------------req: ' + req.toJson().toString());
+    debugPrint('----------------req: ' + req.toJson().toString() + '  ip :' + ip);
     try {
-      Response response = await dio.post('http://192.168.0.112:8081/AuthMobi',
+      Response response = await dio.post('http://$ip:8081/AuthMobi',
           data: req.toJson());
       if (response.statusCode == 200) {
-
+        Get.snackbar("OK", response.statusMessage.toString());
       } else {
         Get.snackbar("Hi", response.statusMessage.toString());
       }
@@ -92,12 +95,20 @@ class _ScanPageState extends State<ScanPage> {
           ],
         ),
         body: Center(
-          child: Text(
-            (qrCodeResult == null)||(qrCodeResult == "")
-                ? "Please Scan to show some result"
-                : "Result:" + qrCodeResult!,
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w900),
-          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Fullname : ' + login.username ,style: TextStyle(fontSize: 20.0)),
+              Text('IP :' + ip , style: TextStyle(fontSize: 20.0)),
+              SizedBox(height: 20,),
+              Text(
+                (qrCodeResult == null)||(qrCodeResult == "")
+                    ? "Please Scan to show some result"
+                    : "Result:" + qrCodeResult!,
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w900),
+              ),
+            ],
+          )
         ));
   }
 }
