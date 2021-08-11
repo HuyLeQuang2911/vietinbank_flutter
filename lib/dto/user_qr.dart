@@ -1,13 +1,13 @@
 class UserQR {
   String username;
   String password;
-  String sessionCode;
-  UserQR(this.username, this.password, this.sessionCode);
+  String qrMsg;
+  UserQR(this.username, this.password, this.qrMsg);
 
   Map<String, dynamic> toJson() => {
     'username': username,
     'password': password,
-    'sessionCode' : sessionCode
+    'qrMsg' : qrMsg
   };
 
 }

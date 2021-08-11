@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import 'menu_page.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -244,17 +247,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          CircleAvatar(
-                              maxRadius: 26,
-                              minRadius: 26,
-                              backgroundColor: Color(0xFF0a4fa8),
-                              child: SvgPicture.asset(
-                                assetQR,
-                                color: Color(0xddffffff),
-                                semanticsLabel: 'Logo',
-                                width: 22,
-                                height: 22,
-                              )),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(MenuPage());
+                            },
+                            child: CircleAvatar(
+                                maxRadius: 26,
+                                minRadius: 26,
+                                backgroundColor: Color(0xFF0a4fa8),
+                                child: SvgPicture.asset(
+                                  assetQR,
+                                  color: Color(0xddffffff),
+                                  semanticsLabel: 'Logo',
+                                  width: 22,
+                                  height: 22,
+                                )),
+                          ),
                           Padding(
                             child: Text("Scan",
                                 style: const TextStyle(

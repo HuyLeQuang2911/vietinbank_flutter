@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:viettinbank_money/dto/login_resp.dart';
 import 'package:viettinbank_money/dto/user_login.dart';
 
+import 'home_screen.dart';
 import 'menu_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,9 +24,9 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
-    ipController = TextEditingController();
+    usernameController = TextEditingController(text: 'user0');
+    passwordController = TextEditingController(text: '12345');
+    ipController = TextEditingController(text: '35.247.168.90:8080');
   }
 
   @override
@@ -77,8 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _entryField(String title, TextEditingController controller,
-      {bool isPassword = false}) {
+  Widget _entryField(String title, TextEditingController controller, {bool isPassword = false }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField (
             controller: controller,
             obscureText: isPassword,
             decoration: InputDecoration(
@@ -155,14 +155,14 @@ class _LoginPageState extends State<LoginPage> {
     debugPrint('req: ' + req.toJson().toString());
     try {
       Response response =
-          await dio.post('http://$ip:8081/loginMobi', data: req.toJson());
+          await dio.post('http://$ip/auth-service/mobi/loginMobi', data: req.toJson());
       if (response.statusCode == 200) {
         // Get.put(LoginResp.fromJson(response.data));
-        Get.to(MenuPage());
+        Get.to(HomeScreen());
       } else {
         Get.snackbar("Hi", response.statusMessage.toString());
       }
-    } catch (e) {
+    } on DioError catch (e) {
       debugPrint('------- error api : ' + e.toString());
 
       Get.defaultDialog(

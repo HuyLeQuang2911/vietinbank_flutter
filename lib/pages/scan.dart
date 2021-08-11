@@ -19,18 +19,17 @@ class _ScanPageState extends State<ScanPage> {
   // final loginResp = Get.find();
   bool backCamera = true;
 
-  Future<String> authAtm(String sessionCode) async {
+  Future<String> authAtm(String qrMsg) async {
     var options = BaseOptions(
       connectTimeout: 5000,
       receiveTimeout: 3000,
     );
     var dio = Dio(options);
-    var req = UserQR(login.username , login.password , sessionCode);
+    var req = UserQR(login.username , login.password , qrMsg);
 
     debugPrint('----------------req: ' + req.toJson().toString() + '  ip :' + ip);
     try {
-      Response response = await dio.post('http://$ip:8081/AuthMobi',
-          data: req.toJson());
+      Response response = await dio.post('http://$ip/auth-service/mobi/authQrMobi', data: req.toJson());
       if (response.statusCode == 200) {
         Get.snackbar("OK", response.statusMessage.toString());
       } else {
@@ -84,9 +83,9 @@ class _ScanPageState extends State<ScanPage> {
                 ); //barcode scnner
                 setState(() {
                   // qrCodeResult = codeSanner.rawContent;
-                  String sessionCode = codeSanner.rawContent;
-                  if (sessionCode.isNotEmpty) {
-                    authAtm(sessionCode).then((value) => qrCodeResult = value) ;
+                  String qrMsg = codeSanner.rawContent;
+                  if (qrMsg.isNotEmpty) {
+                    authAtm(qrMsg).then((value) => qrCodeResult = value) ;
                   }
 
                 });
