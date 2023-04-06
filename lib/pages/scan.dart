@@ -13,7 +13,7 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
-  String? qrCodeResult;
+  String qrCodeResult;
   final UserLogin login = Get.find();
   final String ip = Get.find();
   // final loginResp = Get.find();
@@ -43,7 +43,7 @@ class _ScanPageState extends State<ScanPage> {
         Get.defaultDialog(
             textConfirm: "Confirm",
             textCancel: "Cancel",
-            middleText: e.response!.statusCode.toString());
+            middleText: e.response.statusCode.toString());
       } else {
         Get.defaultDialog(
             textConfirm: "Confirm",
@@ -103,7 +103,7 @@ class _ScanPageState extends State<ScanPage> {
               Text(
                 (qrCodeResult == null)||(qrCodeResult == "")
                     ? "Please Scan to show some result"
-                    : "Result:" + qrCodeResult!,
+                    : "Result:" + qrCodeResult,
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w900),
               ),
             ],

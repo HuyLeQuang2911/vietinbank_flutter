@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'dart:ui';
-import 'package:flutter/rendering.dart';
+
 
 class GeneratePage extends StatefulWidget {
   @override
@@ -23,14 +22,14 @@ class GeneratePageState extends State<GeneratePage> {
               elevation: 5,
               child: ListTile(
                 leading: Icon(Icons.edit),
-                trailing: FlatButton(
+                trailing: TextButton (
                   child: Text(
                     "ENTER",
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
-                  color: Colors.green,
+
                   onPressed: () {
                     setState(() {
                       dummyData = qrTextController.text == ""
@@ -54,7 +53,7 @@ class GeneratePageState extends State<GeneratePage> {
             embeddedImage: NetworkImage(
               "https://avatars1.githubusercontent.com/u/41328571?s=280&v=4",
             ),
-            data: dummyData!,
+            data: dummyData,
             gapless: true,
           ),
         ],
@@ -63,6 +62,6 @@ class GeneratePageState extends State<GeneratePage> {
   }
 }
 
-String? dummyData;
+String dummyData;
 
 TextEditingController qrTextController = TextEditingController();

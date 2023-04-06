@@ -9,14 +9,14 @@ import 'home_screen.dart';
 import 'menu_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController usernameController,
+  TextEditingController usernameController,
       passwordController,
       ipController;
 
@@ -147,28 +147,28 @@ class _LoginPageState extends State<LoginPage> {
       connectTimeout: 5000,
       receiveTimeout: 3000,
     );
-    var dio = Dio(options);
-    var req =
-        Get.put(UserLogin(usernameController.text, passwordController.text));
+    // var dio = Dio(options);
+    var req = Get.put(UserLogin(usernameController.text, passwordController.text));
 
     String ip = Get.put(ipController.text);
     debugPrint('req: ' + req.toJson().toString());
-    try {
-      Response response =
-          await dio.post('http://$ip/auth-service/mobi/loginMobi', data: req.toJson());
-      if (response.statusCode == 200) {
-        // Get.put(LoginResp.fromJson(response.data));
-        Get.to(HomeScreen());
-      } else {
-        Get.snackbar("Hi", response.statusMessage.toString());
-      }
-    } on DioError catch (e) {
-      debugPrint('------- error api : ' + e.toString());
+    Get.to(HomeScreen());
+    // try {
+    //   Response response =
+    //       await dio.post('http://$ip/auth-service/mobi/loginMobi', data: req.toJson());
+    //   if (response.statusCode == 200) {
+    //     // Get.put(LoginResp.fromJson(response.data));
+    //     Get.to(HomeScreen());
+    //   } else {
+    //     Get.snackbar("Hi", response.statusMessage.toString());
+    //   }
+    // } on DioError catch (e) {
+    //   debugPrint('------- error api : ' + e.toString());
 
       Get.defaultDialog(
           textConfirm: "Confirm",
           textCancel: "Cancel",
-          middleText: e.toString());
+          middleText: "");
     }
   }
-}
+

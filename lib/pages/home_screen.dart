@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late PageController controller;
+  PageController controller;
   static const length = 4;
   final pageIndexNotifier = ValueNotifier<int>(0);
   @override
@@ -99,20 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.home,
                   color: Color(0xff347591),
                 ),
-                title: Text('Home',
-                    style: const TextStyle(color: const Color(0xff347591)))),
+
+                label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.credit_card, color: Colors.grey),
-                title:
-                    Text('Cards', style: const TextStyle(color: Colors.grey))),
+                label: 'Card'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.table_chart, color: Colors.grey),
-                title:
-                    Text('Stock', style: const TextStyle(color: Colors.grey))),
+                label:'Stock'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle, color: Colors.grey),
-                title:
-                    Text('Profile', style: const TextStyle(color: Colors.grey)))
+                label: 'Profile')
           ],
           currentIndex: 0,
           iconSize: 18,

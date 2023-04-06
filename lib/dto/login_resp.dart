@@ -1,11 +1,11 @@
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class LoginResp extends GetxController {
-  late int id;
-  late String user;
-  late String name;
-  late String password;
-  late String status;
+   int id;
+   String user;
+   String name;
+   String password;
+   String status;
 
   LoginResp(this.id, this.user, this.name, this.password, this.status);
 
